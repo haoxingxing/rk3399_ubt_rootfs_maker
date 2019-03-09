@@ -1,5 +1,5 @@
 echo -e "\033[36m  Creating Image\033[0m"
-dd if=/dev/zero of=ubuntu.img bs=1M count=4096 oflag=direct
+dd if=/dev/zero of=ubuntu.img bs=1M count=4096
 sudo mkfs.ext4 ubuntu.img
 echo -e "\033[36m  Mounting Image\033[0m"
 mkdir ubuntu-mount
@@ -51,16 +51,16 @@ apt-get install -f -y
 echo  -e "\033[36m  Installing Packages:clean\033[0m"
 rm -rf /var/lib/apt/lists/*
 rm -rf /var/cache/*
-chmod -R +x /bin/* /sbin/* /lib/* /usr/bin/* /usr/sbin/* /usr/lib/* /usr/local/bin/* /usr/local/lib/* /usr/local/sbin/*
+chmod -R +x /bin/* /sbin/* /lib/* /usr/share/* /usr/local/share/* /usr/bin/* /usr/sbin/* /usr/lib/* /usr/local/bin/* /usr/local/lib/* /usr/local/sbin/*
 chmod -R -x /lib/systemd/system
 echo  -e "\033[36m  Setting users\033[0m"
 useradd -s '/bin/bash' -m -G adm,sudo star
 passwd star
-87940733
-87940733
+$1
+$1
 passwd root
-87940733
-87940733
+$1
+$1
 echo  -e "\033[36m  Done\033[0m"
 exit
 EOF
