@@ -1,5 +1,5 @@
 echo -e "\033[36m  Creating Image\033[0m"
-#dd if=/dev/zero of=ubuntu.img bs=1M count=4096 oflag=direct
+dd if=/dev/zero of=ubuntu.img bs=1M count=4096 oflag=direct
 sudo mkfs.ext4 ubuntu.img
 echo -e "\033[36m  Mounting Image\033[0m"
 mkdir ubuntu-mount
@@ -44,20 +44,23 @@ echo -e  "\033[36m  Installing Packages:base\033[0m"
 apt-get install -y language-pack-en-base sudo ssh net-tools ethtool wireless-tools ifupdown network-manager iputils-pingbash-completion htop synaptic alsa-utils rsyslog nano vim git udev build-essential blueman sshfs openssh-server
 echo -e  "\033[36m  Installing Packages:video\033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-good  gstreamer1.0-plugins-bad alsa-utils
-#echo -e  "\033[36m  Installing Packages:qt\033[0m"
-#apt-get install -y libqt5opengl5 libqt5qml5 libqt5quick5 libqt5widgets5 libqt5gui5 libqt5core5a qml-module-qtquick2 libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediaquick-p5
+echo -e  "\033[36m  Installing Packages:qt\033[0m"
+apt-get install -y libqt5opengl5 libqt5qml5 libqt5quick5 libqt5widgets5 libqt5gui5 libqt5core5a qml-module-qtquick2 libqt5multimedia5 libqt5multimedia5-plugins libqt5multimediaquick-p5
 echo -e  "\033[36m  Installing Packages:check\033[0m"
 apt-get install -f -y
 echo  -e "\033[36m  Installing Packages:clean\033[0m"
 rm -rf /var/lib/apt/lists/*
+rm -rf /var/cache/*
+chmod -R +x /bin/* /sbin/* /lib/* /usr/bin/* /usr/sbin/* /usr/lib/* /usr/local/bin/* /usr/local/lib/* /usr/local/sbin/*
+chmod -R -x /lib/systemd/system
 echo  -e "\033[36m  Setting users\033[0m"
 useradd -s '/bin/bash' -m -G adm,sudo star
 passwd star
-$1
-$1
+87940733
+87940733
 passwd root
-$2
-$2
+87940733
+87940733
 echo  -e "\033[36m  Done\033[0m"
 exit
 EOF
