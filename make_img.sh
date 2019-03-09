@@ -61,9 +61,9 @@ exit
 EOF
 echo  -e "\033[36m  Umounting\033[0m"
 sudo bash ch-mount.sh -u ubuntu-mount/
-rm -rf ubuntu-mount/dev/* ubuntu-mount/proc/* ubuntu-mount/sys/* ubuntu-mount/dev/pts/*
+sudo rm -rf ubuntu-mount/dev/* ubuntu-mount/proc/* ubuntu-mount/sys/* ubuntu-mount/dev/pts/*
 echo  -e "\033[36m  Packing\033[0m"
-./make_ext4fs -s -l3072M -a root -L rootfs rootfs.img ubuntu-mount
+sudo ./make_ext4fs -s -l3072M -a root -L rootfs rootfs.img ubuntu-mount
 echo  -e "\033[36m  Package has save to rootfs.img\033[0m"
 sudo umount ubuntu.img
 
