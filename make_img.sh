@@ -12,11 +12,11 @@ cd ..
 echo  -e "\033[36m  Setting up drivers\033[0m"
 sudo cp -b /etc/resolv.conf ubuntu-mount/etc/resolv.conf
 sudo rm ubuntu-mount/etc/apt/sources.list
-sudo cp /etc/apt/sources.list ubuntu-mount/etc/apt/sources.list
+sudo cp ./sources.list ubuntu-mount/etc/apt/sources.list
 sudo cp -b -r /system ubuntu-mount/
-sudo cp -b -r /lib/firmware ubuntu-mount/lib
-sudo cp -b -r /lib/modules ubuntu-mount/lib
-sudo cp -b -r /lib/modprobe.d ubuntu-mount/lib
+sudo cp -b -r ./lib/firmware ubuntu-mount/lib
+sudo cp -b -r ./lib/modules ubuntu-mount/lib
+sudo cp -b -r ./lib/modprobe.d ubuntu-mount/lib
 echo -e  "\033[36m  Changing Root\033[0m"
 cat <<EOF | sudo bash ch-mount.sh -m ubuntu-mount/
 echo -e  "\033[36m  Setting hostname\033[0m"
