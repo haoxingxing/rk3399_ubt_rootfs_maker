@@ -2,10 +2,10 @@ echo -e "\033[36m  Creating Image\033[0m"
 #dd if=/dev/zero of=ubuntu.img bs=1M count=3072
 #sudo mkfs.ext4 ubuntu.img
 echo -e "\033[36m  Mounting Image\033[0m"
-mkdir ubuntu-mount
+sudo mkdir ubuntu-mount
 #sudo mount ubuntu.img ubuntu-mount
 echo -e  "\033[36m  Getting ubuntu rootfs base\033[0m"
-wget -c https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/ubuntu-base/releases/18.04.2/release/ubuntu-base-18.04.2-base-arm64.tar.gz -O base.tar.gz
+sudo wget -c https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/ubuntu-base/releases/18.04.2/release/ubuntu-base-18.04.2-base-arm64.tar.gz -O base.tar.gz
 cd ubuntu-mount
 sudo tar -xpf ../base.tar.gz
 cd ..
@@ -56,9 +56,9 @@ exit
 EOF
 echo  -e "\033[36m  Umounting\033[0m"
 sudo bash ./tools/ch-mount.sh -u ubuntu-mount/
-rm -Rf ubuntu-mount/dev/* ubuntu-mount/run/*
+sudo rm -Rf ubuntu-mount/dev/* ubuntu-mount/run/*
 echo  -e "\033[36m  Packing\033[0m"
-sudo make_ext4fs -s -l3072M rootfs.img ubuntu-mount
+sudo ./tools/make_ext4fs -s -l3072M rootfs.img ubuntu-mount
 echo  -e "\033[36m  Package has save to rootfs.img\033[0m"
 #sudo umount ubuntu.img
 
