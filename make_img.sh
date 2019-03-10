@@ -5,7 +5,7 @@ echo -e "\033[36m  Mounting Image\033[0m"
 mkdir ubuntu-mount
 sudo mount ubuntu.img ubuntu-mount
 echo -e  "\033[36m  Getting ubuntu rootfs base\033[0m"
-wget -c -q https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/ubuntu-base/releases/18.04.2/release/ubuntu-base-18.04.2-base-arm64.tar.gz -O base.tar.gz
+wget -c https://mirrors.tuna.tsinghua.edu.cn/ubuntu-cdimage/ubuntu-base/releases/18.04.2/release/ubuntu-base-18.04.2-base-arm64.tar.gz -O base.tar.gz
 cd ubuntu-mount
 sudo tar -xpf ../base.tar.gz
 cd ..
