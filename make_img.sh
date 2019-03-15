@@ -123,7 +123,7 @@ echo  -e "\033[36m  Umounting\033[0m"
 bash ./tools/ch-mount.sh -u ubuntu-mount/
 rm -Rf ubuntu-mount/dev/* ubuntu-mount/run/*
 echo  -e "\033[36m  Packing\033[0m"
-./tools/make_ext4fs -s rootfs.img ubuntu-mount
+./tools/make_ext4fs -s rootfs.img ubuntu-mount -l4096M
 echo  -e "\033[36m  Package has save to rootfs.img\033[0m"
 if [ $SaveToIMG == "true" ]
 then
