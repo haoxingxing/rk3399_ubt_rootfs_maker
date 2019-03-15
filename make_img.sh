@@ -52,7 +52,8 @@ if [ ${PASSWD}n == ""n ]
 then
 read -p "Input password:" PASSWD
 fi
-echo -e "\033[31m Username: $USER\n Password: $PASSWD\033[0m"
+echo -e "\033[31m Username: $USER\n Password: $PASSWD\n Base Image URL: $URL\n Is Save To Img: $SaveToIMG \nSleep 10 seconds\033[0m"
+sleep 10
 if [ $SaveToIMG == "true" ]
 then
 echo -e "\033[36m  Creating Image\033[0m"
@@ -97,6 +98,8 @@ y
 y
 EOF
 cat <<EOF |  chroot ubuntu-mount/
+echo -e  "\033[36m  Installing Packages:upgrade\033[0m"
+apt-get upgrade
 echo -e  "\033[36m  Installing Packages:base\033[0m"
 apt-get install -y  language-pack-en-base screen ntp  ssh net-tools ethtool pkg-config wireless-tools ifupdown network-manager iputils-ping bash-completion htop synaptic alsa-utils nano vim git udev build-essential sshfs openssh-server telnetd bluez telnet nmon curl language-pack-zh-hans
 echo -e  "\033[36m  Installing Packages:video\033[0m"
@@ -120,7 +123,7 @@ echo  -e "\033[36m  Umounting\033[0m"
 bash ./tools/ch-mount.sh -u ubuntu-mount/
 rm -Rf ubuntu-mount/dev/* ubuntu-mount/run/*
 echo  -e "\033[36m  Packing\033[0m"
-./tools/make_ext4fs -s -l3072M rootfs.img ubuntu-mount
+./tools/make_ext4fs -s rootfs.img ubuntu-mount
 echo  -e "\033[36m  Package has save to rootfs.img\033[0m"
 if [ $SaveToIMG == "true" ]
 then
