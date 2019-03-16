@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Automatically re-run script under  if not root
 if [ $(id -u) -ne 0 ]; then
 	echo "Re-running script under ..."
@@ -52,8 +51,8 @@ if [ ${PASSWD}n == ""n ]
 then
 read -p "Input password:" PASSWD
 fi
-echo -e "\033[31m Username: $USER\n Password: $PASSWD\n Base Image URL: $URL\n Is Save To Img: $SaveToIMG \nSleep 10 seconds\033[0m"
-sleep 10
+echo -e "\033[31;1m Username: $USER\n Password: $PASSWD\n Base Image URL: $URL\n Is Save To Img: $SaveToIMG \nSleep 3 seconds\033[0m"
+sleep 3
 if [ $SaveToIMG == "true" ]
 then
 echo -e "\033[36m  Creating Image\033[0m"
@@ -61,8 +60,9 @@ dd if=/dev/zero of=ubuntu.img bs=1M count=3072
 mkfs.ext4 ubuntu.img
 echo -e "\033[36m  Mounting Image\033[0m"
 fi
- rm -rf ubuntu-mount
- mkdir ubuntu-mount
+bash ./tools/ch-mount.sh -u ubuntu-mount/
+rm -rf ubuntu-mount
+mkdir ubuntu-mount
 if [ $SaveToIMG == "true" ]
 then
 mount ubuntu.img ubuntu-mount
@@ -80,6 +80,9 @@ cp -b -r ./drivers/system ubuntu-mount/
 cp -b -r ./drivers/lib ubuntu-mount/
 echo -e  "\033[36m  Changing Root\033[0m"
 cat <<EOF |  bash ./tools/ch-mount.sh -m ubuntu-mount/
+{ 
+    set +x; 
+} 2> /dev/null
 echo -e  "\033[36m  Setting hostname\033[0m"
 echo "starpi">/etc/hostname
 echo "127.0.0.1 localhost">>/etc/hosts
@@ -97,11 +100,14 @@ y
 y
 y
 EOF
-cat <<EOF |  chroot ubuntu-mount/
+cat <<EOF |  chroot ubuntu-mount/ bash -xe
+{ 
+    set +x; 
+} 2> /dev/null
 echo -e  "\033[36m  Installing Packages:upgrade\033[0m"
 apt-get upgrade
 echo -e  "\033[36m  Installing Packages:base\033[0m"
-apt-get install -y  language-pack-en-base screen ntp  ssh net-tools ethtool pkg-config wireless-tools ifupdown network-manager iputils-ping bash-completion htop synaptic alsa-utils nano vim git udev build-essential sshfs openssh-server telnetd bluez telnet nmon curl language-pack-zh-hans
+apt-get install -y  language-pack-en-base screen ntp  ssh net-tools ethtool pkg-config wireless-tools ifupdown network-manager iputils-ping bash-completion htop synaptic alsa-utils nano vim git udev build-essential sshfs openssh-server telnetd bluez telnet nmon curl language-pack-zh-hans zip unzip 
 echo -e  "\033[36m  Installing Packages:video\033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-good  gstreamer1.0-plugins-bad alsa-utils
 echo -e  "\033[36m  Installing Packages:check\033[0m"
@@ -109,7 +115,7 @@ apt-get install -f -y
 echo  -e "\033[36m  Installing Packages:clean\033[0m"
 rm -rf /var/lib/apt/lists/* /var/cache/man/*
 echo  -e "\033[36m  Setting users\033[0m"
-useradd -s '/bin/bash' -m -G adm, $USER
+useradd -s '/bin/bash' -m -G adm,sudo $USER
 passwd $USER
 $PASSWD
 $PASSWD
@@ -123,12 +129,9 @@ echo  -e "\033[36m  Umounting\033[0m"
 bash ./tools/ch-mount.sh -u ubuntu-mount/
 rm -Rf ubuntu-mount/dev/* ubuntu-mount/run/*
 echo  -e "\033[36m  Packing\033[0m"
-./tools/make_ext4fs -s rootfs.img ubuntu-mount -l4096M
+./tools/make_ext4fs  -l4096M -s rootfs.img ubuntu-mount
 echo  -e "\033[36m  Package has save to rootfs.img\033[0m"
 if [ $SaveToIMG == "true" ]
 then
 umount ubuntu.img
 fi
-
-
-

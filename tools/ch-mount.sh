@@ -1,11 +1,15 @@
-#!/bin/bash
+#!/bin/bash -xe
+{
+    set +x
+} 2> /dev/null
+
 function mnt() {
 #echo "MOUNTING"
 sudo mount -t proc /proc ${2}proc
 sudo mount -t sysfs /sys ${2}sys
 sudo mount -o bind /dev ${2}dev
 sudo mount -o bind /dev/pts ${2}dev/pts
-sudo chroot ${2}
+sudo chroot ${2} bash -xe
 }
 
 function umnt() {
