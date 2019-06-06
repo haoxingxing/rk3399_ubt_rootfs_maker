@@ -107,7 +107,7 @@ cat <<EOF |  chroot ubuntu-mount/ bash -xe
 echo -e  "\033[36m  Installing Packages:upgrade\033[0m"
 apt-get upgrade
 echo -e  "\033[36m  Installing Packages:base\033[0m"
-apt-get install -y  language-pack-en-base screen ntp  ssh net-tools ethtool pkg-config wireless-tools ifupdown network-manager iputils-ping bash-completion htop synaptic alsa-utils nano vim git udev build-essential sshfs openssh-server telnetd bluez telnet nmon curl language-pack-zh-hans zip unzip 
+apt-get install -y  language-pack-en-base screen ntp  ssh net-tools ethtool pkg-config wireless-tools ifupdown network-manager iputils-ping bash-completion htop synaptic alsa-utils nano vim git udev build-essential sshfs openssh-server telnetd bluez telnet nmon curl language-pack-zh-hans zip unzip ubuntu-server ubuntu-defaults-zh-cn ubuntu-dev-tools 
 echo -e  "\033[36m  Installing Packages:video\033[0m"
 apt-get install -y gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-alsa gstreamer1.0-plugins-good  gstreamer1.0-plugins-bad alsa-utils
 echo -e  "\033[36m  Installing Packages:check\033[0m"
